@@ -15,7 +15,7 @@ function* pollSaga(config) {
 
       yield put(config.action(config.payload, config.meta));
     } catch (err) {
-      yield put(stopPoll(err));
+      yield put(stopPoll({ key: config.key, err }));
     }
   }
 }
