@@ -17,7 +17,7 @@ const DefaultColumnFilter = ({ column: { filterValue, preFilteredRows, setFilter
   );
 };
 
-export const Table = memo(({ columns, data }) => {
+const Table = ({ columns, data }) => {
   const defaultColumn = React.useMemo(
     () => ({
       Filter: DefaultColumnFilter,
@@ -131,4 +131,6 @@ export const Table = memo(({ columns, data }) => {
       </PaginationContainer>
     </>
   );
-});
+};
+
+export default memo(Table);

@@ -2,8 +2,6 @@ import { useMemo, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { PageLayout } from 'features/pageLayout';
-
 import {
   fetchProcesses,
   cerateProcess,
@@ -12,8 +10,9 @@ import {
   useLiveUpdateProcesses,
 } from 'features/processes';
 
-import { Table } from 'features/table';
-import { Spinner } from 'features/spinner';
+import PageLayout from 'features/pageLayout';
+import Table from 'features/table';
+import Spinner from 'features/spinner';
 import { LoadingStatuses } from 'features/lib';
 
 import { selectLoadingStatus, selectIsNewProcessCreating } from '../processesPageSelector';

@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { SpinnerContainer, Spin } from './spinnerStyle';
 
-export const Spinner = memo(() => {
+const Spinner = () => {
   return (
     <SpinnerContainer>
       <Spin>
@@ -18,4 +18,6 @@ export const Spinner = memo(() => {
       </Spin>
     </SpinnerContainer>
   );
-});
+};
+
+export default memo(Spinner);

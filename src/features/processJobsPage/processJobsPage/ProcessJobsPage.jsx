@@ -2,12 +2,11 @@ import { useParams } from 'react-router-dom';
 import { useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { PageLayout } from 'features/pageLayout';
-
 import { fetchProcess, useLiveUpdateProcesses } from 'features/processes';
+import PageLayout from 'features/pageLayout';
 import { selectJobsByProcessId } from 'features/jobs';
-import { Table } from 'features/table';
-import { Spinner } from 'features/spinner';
+import Table from 'features/table';
+import Spinner from 'features/spinner';
 import { LoadingStatuses } from 'features/lib';
 
 import { leaveProcessJobPage } from '../processJobsPageActions';
