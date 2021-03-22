@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
-function App() {
+import { ProcessesPage } from 'features/processesPage';
+import { ProcessJobsPage } from 'features/processJobsPage';
+
+const Layout = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background: #f7f8fc;
+`;
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Switch>
+        <Route path="/jobs/:processId">
+          <ProcessJobsPage />
+        </Route>
+
+        <Route path="/">
+          <ProcessesPage />
+        </Route>
+      </Switch>
+    </Layout>
   );
-}
+};
 
 export default App;
