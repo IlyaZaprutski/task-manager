@@ -5,9 +5,11 @@ import { Provider } from 'react-redux';
 import { Reset } from 'styled-reset';
 import { createGlobalStyle } from 'styled-components';
 
-import App from './App';
+import { ErrorBoundary } from 'features/lib';
 
-import store from 'store';
+import store from './store';
+
+import App from './App';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -24,13 +26,15 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Reset />
-        <GlobalStyle />
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Reset />
+          <GlobalStyle />
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root')
 );
