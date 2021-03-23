@@ -10,19 +10,17 @@ const initialState = {
 };
 
 export const processJobsPageReducer = createReducer(initialState, (builder) => {
-  builder.addCase(fetchProcessStarted, (state) => {
-    state.loading = LoadingStatuses.LOADING;
-  });
-
-  builder.addCase(fetchProcessSuccess, (state) => {
-    state.loading = LoadingStatuses.SUCCEEDED;
-  });
-
-  builder.addCase(fetchProcessFailed, (state) => {
-    state.loading = LoadingStatuses.FAILED;
-  });
-
-  builder.addCase(leaveProcessJobPage, (state) => {
-    state.loading = LoadingStatuses.IDLE;
-  });
+  builder
+    .addCase(fetchProcessStarted, (state) => {
+      state.loading = LoadingStatuses.LOADING;
+    })
+    .addCase(fetchProcessSuccess, (state) => {
+      state.loading = LoadingStatuses.SUCCEEDED;
+    })
+    .addCase(fetchProcessFailed, (state) => {
+      state.loading = LoadingStatuses.FAILED;
+    })
+    .addCase(leaveProcessJobPage, (state) => {
+      state.loading = LoadingStatuses.IDLE;
+    });
 });
