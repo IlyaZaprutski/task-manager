@@ -1,7 +1,7 @@
 import { selectJobsByProcessId } from './jobsSelectors';
 
 describe('jobs selectors', () => {
-  it('should handle fetchProcessesStarted action', () => {
+  it('select jobs by process id', () => {
     const processId = 'abc';
 
     const state = {
