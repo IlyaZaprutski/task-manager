@@ -1,10 +1,7 @@
 import { call, put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { normalize } from 'normalizr';
-import { nanoid } from 'nanoid';
-import faker from 'faker';
-
-import { JobStatuses } from 'features/lib';
+import { toast } from 'react-toastify';
 
 import {
   fetchProcesses as fetchProcessesAction,
@@ -28,10 +25,9 @@ import {
 
 import { processEntitySchema } from './processesSchema';
 import { selectProcessById } from './processesSelectors';
+import { createProcess } from './processUtils';
 
 axios.defaults.baseURL = 'http://localhost:3001';
-
-const STATUSES = Object.values(JobStatuses);
 
 function* fetchProcess(id) {
   const { data } = yield call(axios, {
@@ -63,7 +59,7 @@ function* handleFetchProcessesAction() {
   } catch (error) {
     yield put(fetchProcessesFailed());
 
-    alert(error.message || 'Something went wrong');
+    toast.error(error.message || 'Something went wrong');
   }
 }
 
@@ -71,12 +67,12 @@ function* handleFetchProcessAction(action) {
   const { id } = action.payload;
 
   try {
-    yield put(fetchProcessStarted());
+    yield put(fetchProcessStarted({ id }));
 
     yield call(fetchProcess, id);
   } catch (error) {
     yield put(fetchProcessFailed({ id }));
-    alert(error.message || 'Something went wrong');
+    toast.error(error.message || 'Something went wrong');
   }
 }
 
@@ -96,35 +92,7 @@ function* handleCreateProcessAction() {
   try {
     yield put(cerateProcessStarted());
 
-    const processId = nanoid();
-
-    const jobsCount = faker.random.number({
-      min: 1,
-      max: 10,
-    });
-
-    const jobs = new Array(jobsCount).fill(0).map(() => {
-      return {
-        id: nanoid(),
-        processId: processId,
-        name: faker.company.companyName(),
-        status:
-          STATUSES[
-            faker.random.number({
-              min: 0,
-              max: STATUSES.length - 1,
-            })
-          ],
-      };
-    });
-
-    const process = {
-      id: processId,
-      name: faker.system.commonFileName(),
-      startTime: Date.now(),
-      jobsCount: jobsCount,
-      jobs: jobs,
-    };
+    const process = createProcess();
 
     const { data } = yield call(axios, {
       method: 'post',
@@ -136,10 +104,10 @@ function* handleCreateProcessAction() {
 
     yield put(createProcessSuccess(normalizedProcess));
 
-    alert(`New process added: ${processId}`);
+    toast.success(`New process added: ${process.id}`);
   } catch (error) {
-    yield put(createProcessFailed);
-    alert(error.message || 'Something went wrong');
+    yield put(createProcessFailed());
+    toast.error(error.message || 'Something went wrong');
   }
 }
 
@@ -158,11 +126,10 @@ function* handleDeleteProcessAction(action) {
 
     yield put(deleteProcessSuccess({ process }));
 
-    alert(`Process deleted: ${process.name}`);
+    toast.success(`Process deleted: ${process.name}`);
   } catch (error) {
     yield put(deleteProcessFailed({ process }));
-
-    alert(error.message || 'Something went wrong');
+    toast.error(error.message || 'Something went wrong');
   }
 }
 

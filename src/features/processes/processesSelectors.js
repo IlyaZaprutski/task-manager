@@ -1,20 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { JobStatuses } from 'features/lib';
-
-const getProcessStatus = (jobsStatuses) => {
-  const jobsStatusesMap = new Set(jobsStatuses);
-
-  if (jobsStatusesMap.has(JobStatuses.RUNNING)) {
-    return 'running';
-  }
-
-  if (jobsStatusesMap.has(JobStatuses.FAILED)) {
-    return 'failed';
-  }
-
-  return 'succeeded';
-};
+import { getProcessStatus } from './processUtils';
 
 export const selectAllProcessesWithStatus = createSelector(
   (state) => state.processes,
