@@ -139,12 +139,10 @@ describe('processes reducer', () => {
       processesReducer(
         state,
         deleteProcessSuccess({
-          process: {
-            id: 'a',
-            name: 'test',
-            startTime: 123456,
-            jobsCount: 1,
-          },
+          id: 'a',
+          name: 'test',
+          startTime: 123456,
+          jobsCount: 1,
         })
       )
     ).toEqual({

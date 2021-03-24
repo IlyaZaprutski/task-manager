@@ -48,8 +48,8 @@ describe('process sagas', () => {
     return expectSaga(processesWatcher)
       .withState(storeState)
       .provide([[matchers.call.fn(axios)]])
-      .put(deleteProcessSuccess({ process }))
-      .put(deleteProcessStarted({ process }))
+      .put(deleteProcessSuccess(process))
+      .put(deleteProcessStarted(process))
       .dispatch(deleteProcess(process))
       .silentRun();
   });
@@ -75,8 +75,8 @@ describe('process sagas', () => {
     return expectSaga(processesWatcher)
       .withState(storeState)
       .provide([[matchers.call.fn(axios), throwError(new Error('test error'))]])
-      .put(deleteProcessFailed({ process }))
-      .put(deleteProcessStarted({ process }))
+      .put(deleteProcessFailed(process))
+      .put(deleteProcessStarted(process))
       .dispatch(deleteProcess(process))
       .silentRun();
   });

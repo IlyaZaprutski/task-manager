@@ -11,4 +11,4 @@ export const JobStatuses = {
   FAILED: 'failed',
 };
 
-export const LIVE_POLLING_DELAY_IN_SECONDS = 1 * 5;
+export const LIVE_POLLING_DELAY_IN_SECONDS = 20 * 5;

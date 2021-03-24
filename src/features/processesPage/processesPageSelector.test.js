@@ -1,4 +1,4 @@
-import { selectLoadingStatus, selectIsNewProcessCreating } from './processesPageSelector';
+import { selectLoadingStatus, selectIsNewProcessCreating, selectDeletingProcessesIds } from './processesPageSelector';
 
 describe('processes page selectors', () => {
   it('select loading status', () => {
@@ -19,5 +19,17 @@ describe('processes page selectors', () => {
     };
 
     expect(selectIsNewProcessCreating(state)).toEqual(false);
+  });
+
+  it('select deleting processes ids', () => {
+    const ids = ['s', 'd', 'f'];
+
+    const state = {
+      processPage: {
+        deletingProcessesIds: ids,
+      },
+    };
+
+    expect(selectDeletingProcessesIds(state)).toEqual(ids);
   });
 });

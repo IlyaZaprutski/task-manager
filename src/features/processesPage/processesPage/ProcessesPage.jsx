@@ -15,7 +15,7 @@ import Table from 'features/table';
 import Spinner from 'features/spinner';
 import { LoadingStatuses } from 'features/lib';
 
-import { selectLoadingStatus, selectIsNewProcessCreating } from '../processesPageSelector';
+import { selectLoadingStatus, selectIsNewProcessCreating, selectDeletingProcessesIds } from '../processesPageSelector';
 import { leaveProcessPage } from '../processesPageActions';
 
 import { SpinnerContainer, CreateBtn } from './processesPageStyle';
@@ -40,6 +40,7 @@ export const ProcessesPage = () => {
   const processes = useSelector(selectAllProcessesWithStatus);
   const loadingStatus = useSelector(selectLoadingStatus);
   const isNewProcessCreating = useSelector(selectIsNewProcessCreating);
+  const deletingProcessesIds = useSelector(selectDeletingProcessesIds);
 
   const columns = useMemo(
     () => [
@@ -80,22 +81,28 @@ export const ProcessesPage = () => {
         disableFilters: true,
         Header: () => null,
         id: 'deleteProcess',
-        Cell: ({ value, row }) => (
-          <button
-            onClick={() => {
-              dispatch(
-                deleteProcess({
-                  id: row.values.id,
-                })
-              );
-            }}
-          >
-            Delete
-          </button>
-        ),
+        Cell: ({ value, row }) => {
+          if (deletingProcessesIds.includes(row.values.id)) {
+            return 'deleting';
+          }
+
+          return (
+            <button
+              onClick={() => {
+                dispatch(
+                  deleteProcess({
+                    id: row.values.id,
+                  })
+                );
+              }}
+            >
+              Delete
+            </button>
+          );
+        },
       },
     ],
-    [dispatch]
+    [dispatch, deletingProcessesIds]
   );
 
   return (

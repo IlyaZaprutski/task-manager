@@ -7,6 +7,9 @@ import {
   cerateProcessStarted,
   createProcessSuccess,
   createProcessFailed,
+  deleteProcessStarted,
+  deleteProcessSuccess,
+  deleteProcessFailed,
 } from 'features/processes';
 import { LoadingStatuses } from 'features/lib';
 
@@ -15,6 +18,7 @@ import { leaveProcessPage } from './processesPageActions';
 const initialState = {
   loading: LoadingStatuses.IDLE,
   isNewProcessCreating: false,
+  deletingProcessesIds: [],
 };
 
 export const processesPageReducer = createReducer(initialState, (builder) => {
@@ -39,5 +43,14 @@ export const processesPageReducer = createReducer(initialState, (builder) => {
     })
     .addCase(createProcessFailed, (state) => {
       state.isNewProcessCreating = false;
+    })
+    .addCase(deleteProcessStarted, (state, action) => {
+      state.deletingProcessesIds.push(action.payload.id);
+    })
+    .addCase(deleteProcessSuccess, (state, action) => {
+      state.deletingProcessesIds = state.deletingProcessesIds.filter((x) => x !== action.payload.id);
+    })
+    .addCase(deleteProcessFailed, (state, action) => {
+      state.deletingProcessesIds = state.deletingProcessesIds.filter((x) => x !== action.payload.id);
     });
 });

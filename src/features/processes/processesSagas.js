@@ -117,18 +117,18 @@ function* handleDeleteProcessAction(action) {
   const process = yield select((state) => selectProcessById(state, id));
 
   try {
-    yield put(deleteProcessStarted({ process }));
+    yield put(deleteProcessStarted(process));
 
     yield call(axios, {
       method: 'delete',
       url: `/processes/${id}`,
     });
 
-    yield put(deleteProcessSuccess({ process }));
+    yield put(deleteProcessSuccess(process));
 
     toast.success(`Process deleted: ${process.name}`);
   } catch (error) {
-    yield put(deleteProcessFailed({ process }));
+    yield put(deleteProcessFailed(process));
     toast.error(error.message || 'Something went wrong');
   }
 }

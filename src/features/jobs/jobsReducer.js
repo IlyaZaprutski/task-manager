@@ -27,8 +27,6 @@ export const jobsReducer = createReducer(initialState, (builder) => {
       jobsAdapter.addMany(state, action.payload.entities.jobs);
     })
     .addCase(deleteProcessSuccess, (state, action) => {
-      const { jobs } = action.payload.process;
-
-      jobsAdapter.removeMany(state, jobs);
+      jobsAdapter.removeMany(state, action.payload.jobs);
     });
 });

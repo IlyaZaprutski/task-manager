@@ -31,6 +31,6 @@ export const processesReducer = createReducer(initialState, (builder) => {
       processesAdapter.addOne(state, newProcess);
     })
     .addCase(deleteProcessSuccess, (state, action) => {
-      processesAdapter.removeOne(state, action.payload.process.id);
+      processesAdapter.removeOne(state, action.payload.id);
     });
 });

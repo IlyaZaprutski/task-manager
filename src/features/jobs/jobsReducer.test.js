@@ -216,9 +216,7 @@ describe('job reducer', () => {
       jobsReducer(
         state,
         deleteProcessSuccess({
-          process: {
-            jobs: ['a', 'b'],
-          },
+          jobs: ['a', 'b'],
         })
       )
     ).toEqual({
